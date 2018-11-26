@@ -1,9 +1,6 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.DepositRequest;
-import com.mmm.corebanking.entities.SearchHisotryRequest;
-import com.mmm.corebanking.entities.WithdrawalRequest;
+import com.mmm.corebanking.entities.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,23 +13,20 @@ import java.math.BigDecimal;
 // TODO: annoations spriing sur les interfaces
 public class CoreBankingOperationsControllerImpl implements CoreBankingOperationsController {
 
-     private final CoreBankingOperationsService coreBankingOperationsService;
-
-     private final CoreBankingProcess coreBankingProcess;
+     private final CoreBankingOperationsProcess coreBankingOperationsProcess;
 
     @Inject
-    public CoreBankingOperationsControllerImpl(CoreBankingOperationsService
-                                                       coreBankingOperationsService, CoreBankingProcess coreBankingProcess){
+    public CoreBankingOperationsControllerImpl(CoreBankingOperationsProcess
+                                                       coreBankingOperationsProcess){
 
-        this.coreBankingOperationsService=coreBankingOperationsService;
-        this.coreBankingProcess = coreBankingProcess;
+        this.coreBankingOperationsProcess = coreBankingOperationsProcess;
     }
 
     @RequestMapping(method = RequestMethod.PUT,path="/deposit")
-    public DepositRequest deposit(@RequestBody DepositRequest depositRequest) {
+    public DepositResponse deposit(@RequestBody DepositRequest depositRequest) throws CoreBankingBusinessException {
 
-        coreBankingProcess.deposit(depositRequest);
-        return new DepositRequest();
+        Account accountUpdated= coreBankingOperationsProcess.deposit(depositRequest.toTransaction());
+        return DepositResponse.builder().accountId(String.valueOf(accountUpdated.getAccountId())).amount(new BigDecimal(accountUpdated.getAmount().getNumber().longValueExact())).build();
     }
 
     public WithdrawalRequest withdrawal(WithdrawalRequest depositRequest) {

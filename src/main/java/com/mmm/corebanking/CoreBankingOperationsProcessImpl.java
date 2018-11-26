@@ -4,26 +4,32 @@ import com.mmm.corebanking.entities.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.math.BigDecimal;
 
 @Named
-public class CoreBankingOperationsServiceImpl implements CoreBankingOperationsService {
+public class CoreBankingOperationsProcessImpl implements CoreBankingOperationsProcess {
 
-    private AccountDAO accountDAO;
+    private final AccountDAO accountDAO;
+
+    private final TransactionDAO transactionDAO;
 
     @Inject
-    public CoreBankingOperationsServiceImpl(AccountDAO accountDAO){
+    public CoreBankingOperationsProcessImpl(AccountDAO accountDAO, TransactionDAO transactionDAO){
         this.accountDAO = accountDAO;
+        this.transactionDAO = transactionDAO;
     }
 
 
     @Override
-    public Account deposit(Account account, Transaction transaction) throws CoreBankingBusinessException {
-        validateDepositTransaction(account,transaction);
-        return accountDAO.save(account,transaction);
+    public Account deposit( Transaction transaction) throws CoreBankingBusinessException {
+
+        Account accountToUpdate=accountDAO.findById(transaction.getAccount().getAccountId());
+        validateDepositTransaction(transaction);
+
+        transactionDAO.save(transaction);
+        return accountDAO.save(accountToUpdate);
     }
 
-    private void validateDepositTransaction(Account account, Transaction transaction) throws CoreBankingBusinessException {
+    private void validateDepositTransaction(Transaction transaction) throws CoreBankingBusinessException {
         /**
           All validation calls and operations should be done here
         * */
@@ -33,7 +39,10 @@ public class CoreBankingOperationsServiceImpl implements CoreBankingOperationsSe
     @Override
     public Account withdrawal(Account account, Transaction transaction) throws CoreBankingBusinessException {
         validateWithdrawalTransaction(account,transaction);
-        return accountDAO.save(account,transaction);
+
+        transactionDAO.save(transaction);
+        return accountDAO.save(account);
+
     }
 
     private void validateWithdrawalTransaction(Account account, Transaction transaction) throws CoreBankingBusinessException {

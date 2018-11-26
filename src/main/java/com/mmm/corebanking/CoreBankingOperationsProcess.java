@@ -4,10 +4,10 @@ import com.mmm.corebanking.entities.*;
 
 import java.math.BigDecimal;
 
-public interface CoreBankingOperationsService {
+public interface CoreBankingOperationsProcess {
 
 
-    Account deposit(Account account, Transaction transaction) throws CoreBankingBusinessException;
+    Account deposit(Transaction transaction) throws CoreBankingBusinessException;
 
     Account withdrawal(Account account, Transaction transaction) throws CoreBankingBusinessException;
 

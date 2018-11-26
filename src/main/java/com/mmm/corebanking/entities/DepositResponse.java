@@ -1,15 +1,19 @@
 package com.mmm.corebanking.entities;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@RequiredArgsConstructor
 public class DepositResponse {
 
     // TODO : Utilisation de la currency
     // TODO : Les centimes ?
 
-    private BigDecimal amount=new BigDecimal(10);
-    private String accountId="1";
+    private final BigDecimal amount;
+    private final String accountId;
 }

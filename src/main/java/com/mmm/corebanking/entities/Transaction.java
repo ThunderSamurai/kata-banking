@@ -1,15 +1,15 @@
 package com.mmm.corebanking.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.money.MonetaryAmount;
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Currency;
 
 @Entity
 @Data
-@RequiredArgsConstructor
+@Builder
 public class Transaction {
 
 
@@ -19,9 +19,7 @@ public class Transaction {
 
     private final TransactionType transactionType;
 
-    private final BigDecimal amount;
-
-    private final Currency currency;
+    private final MonetaryAmount monetaryAmount;
 
 
     @ManyToOne(fetch=FetchType.LAZY)

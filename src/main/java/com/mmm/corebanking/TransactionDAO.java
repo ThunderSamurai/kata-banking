@@ -9,9 +9,9 @@ public interface TransactionDAO {
     /*
         Return the updated account
      */
-    Account save(Account account, Transaction transaction);
+    Transaction save(Transaction transaction);
 
 
-    Account findById(String accountId);
+    Transaction findById(long transactionId);
 
 }

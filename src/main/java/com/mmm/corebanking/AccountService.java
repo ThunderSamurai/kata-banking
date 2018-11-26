@@ -12,6 +12,6 @@ public interface AccountService {
     Account save(Account account);
 
 
-    Account findById(String accountId);
+    Account findById(long accountId);
 
 }

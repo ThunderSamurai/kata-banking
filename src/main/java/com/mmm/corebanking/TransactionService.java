@@ -12,6 +12,6 @@ public interface TransactionService {
     Transaction save(Transaction account);
 
 
-    Transaction findById(String transactionId);
+    Transaction findById(long transactionId);
 
 }

@@ -14,6 +14,6 @@ public interface AccountDAO {
      */
     Account save(Account account);
 
-    Account findById(String accountId);
+    Account findById(long accountId);
 
 }
