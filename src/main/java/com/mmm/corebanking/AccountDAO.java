@@ -1,15 +1,19 @@
 package com.mmm.corebanking;
 
 import com.mmm.corebanking.entities.Account;
+import com.mmm.corebanking.entities.Transaction;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 
 public interface AccountDAO {
 
 
     /*
-    return the updated account
+        Return the updated account
      */
-    Account update(long accountId, BigDecimal amount);
+    Account save(Account account);
+
+    Account findById(String accountId);
 
 }

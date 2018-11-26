@@ -7,7 +7,7 @@ import com.mmm.corebanking.entities.WithdrawalRequest;
 public interface CoreBankingOperationsController {
 
 
-    DepositRequest deposit(DepositRequest depositRequest);
+    DepositRequest deposit(String depositRequest,String amount);
 
     WithdrawalRequest withdrawal(WithdrawalRequest depositRequest);
 

@@ -6,27 +6,25 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Set;
 
 @Entity
 @Data
 @RequiredArgsConstructor
-public class Account {
+public class Transaction {
+
 
     @Id
     @Column(name="ID")
-    private final long accountId;
+    private final long transactionId;
+
+    private final TransactionType transactionType;
 
     private final BigDecimal amount;
 
     private final Currency currency;
 
-    //TODO : optimiser
-    @ManyToMany(mappedBy="accounts")
-    Set<Customer> customers;
 
-    @OneToMany(mappedBy="account")
-    private Set<Transaction> transactionList;
-    //Others infos like 'creation date', 'last save date', ....
-
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID")
+    private Account account;
 }

@@ -1,17 +1,15 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.entities.DepositRequest;
-import com.mmm.corebanking.entities.SearchHisotryRequest;
-import com.mmm.corebanking.entities.WithdrawalRequest;
+import com.mmm.corebanking.entities.*;
 
 import java.math.BigDecimal;
 
 public interface CoreBankingOperationsService {
 
 
-    DepositRequest deposit(long accountId, BigDecimal amount);
+    Account deposit(Account account, Transaction transaction) throws CoreBankingBusinessException;
 
-    WithdrawalRequest withdrawal(long accountId, BigDecimal amount);
+    Account withdrawal(Account account, Transaction transaction) throws CoreBankingBusinessException;
 
     SearchHisotryRequest searchHisotry(SearchHisotryRequest depositRequest);
 

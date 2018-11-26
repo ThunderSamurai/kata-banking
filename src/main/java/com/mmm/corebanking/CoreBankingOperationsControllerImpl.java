@@ -1,29 +1,38 @@
 package com.mmm.corebanking;
 
+import com.mmm.corebanking.entities.Account;
 import com.mmm.corebanking.entities.DepositRequest;
 import com.mmm.corebanking.entities.SearchHisotryRequest;
 import com.mmm.corebanking.entities.WithdrawalRequest;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.inject.Named;
+import java.math.BigDecimal;
 
-@Named
-// required arg constructor with injects
+@RestController
+@EnableAutoConfiguration
+// TODO: required arg constructor with injects
+// TODO: annoations spriing sur les interfaces
 public class CoreBankingOperationsControllerImpl implements CoreBankingOperationsController {
 
      private final CoreBankingOperationsService coreBankingOperationsService;
 
+     private final CoreBankingProcess coreBankingProcess;
+
     @Inject
     public CoreBankingOperationsControllerImpl(CoreBankingOperationsService
-                                                coreBankingOperationsService){
+                                                       coreBankingOperationsService, CoreBankingProcess coreBankingProcess){
 
         this.coreBankingOperationsService=coreBankingOperationsService;
+        this.coreBankingProcess = coreBankingProcess;
     }
 
-    public DepositRequest deposit(DepositRequest depositRequest) {
+    @RequestMapping(method = RequestMethod.PUT,path="/deposit")
+    public DepositRequest deposit(@RequestBody DepositRequest depositRequest) {
 
-        coreBankingOperationsService.deposit()
-        return null;
+        coreBankingProcess.deposit(depositRequest);
+        return new DepositRequest();
     }
 
     public WithdrawalRequest withdrawal(WithdrawalRequest depositRequest) {
