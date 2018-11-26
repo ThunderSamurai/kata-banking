@@ -1,15 +1,22 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.cutomers;
+
+import com.mmm.corebanking.accounts.Account;
+import com.mmm.corebanking.shared.entities.AbstractTrackedEntity;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Customer {
+@Data
+@Builder
+public class Customer extends AbstractTrackedEntity {
 
     @Id
     @Column(name="ID")
-    private Long customerId;
+    private long customerId;
 
     private String firstname;
     private String lastname;

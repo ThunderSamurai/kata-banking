@@ -1,8 +1,9 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.accounts.transactions;
 
+import com.mmm.corebanking.shared.entities.AbstractTrackedEntity;
+import com.mmm.corebanking.accounts.Account;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import javax.money.MonetaryAmount;
 import javax.persistence.*;
@@ -10,11 +11,10 @@ import javax.persistence.*;
 @Entity
 @Data
 @Builder
-public class Transaction {
+public class Transaction extends AbstractTrackedEntity {
 
 
     @Id
-    @Column(name="ID")
     private final long transactionId;
 
     private final TransactionType transactionType;

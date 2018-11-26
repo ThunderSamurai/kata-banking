@@ -1,4 +1,4 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.view;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Builder
 @RequiredArgsConstructor
-public class DepositResponse {
+public class WithdrawalResponse {
 
     // TODO : Utilisation de la currency
     // TODO : Les centimes ?

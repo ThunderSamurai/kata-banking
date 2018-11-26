@@ -1,6 +1,7 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.entities.*;
+import com.mmm.corebanking.accounts.Account;
+import com.mmm.corebanking.view.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,18 @@ public class CoreBankingOperationsControllerImpl implements CoreBankingOperation
         return DepositResponse.builder().accountId(String.valueOf(accountUpdated.getAccountId())).amount(new BigDecimal(accountUpdated.getAmount().getNumber().longValueExact())).build();
     }
 
-    public WithdrawalRequest withdrawal(WithdrawalRequest depositRequest) {
-        return null;
+
+    @RequestMapping(method = RequestMethod.PUT,path="/withdrawal")
+    public WithdrawalResponse withdrawal(@RequestBody WithdrawalRequest withdrawalRequest) throws CoreBankingBusinessException {
+        Account accountUpdated= coreBankingOperationsProcess.withdrawal(withdrawalRequest.toTransaction());
+        return WithdrawalResponse.builder().accountId(String.valueOf(accountUpdated.getAccountId())).amount(new BigDecimal(accountUpdated.getAmount().getNumber().longValueExact())).build();
     }
 
-    public SearchHisotryRequest searchHisotry(SearchHisotryRequest depositRequest) {
-        return null;
+    @RequestMapping(method = RequestMethod.PUT,path="/history")
+    public SearchResponse searchHisotry(@RequestBody SearchRequest searchRequest) throws CoreBankingBusinessException {
+
+       return SearchResponse.builder().transactionSet(coreBankingOperationsProcess.searchHisotry(searchRequest.getStartingDate(),searchRequest.getEndingDate())).build();
+
     }
 
 }

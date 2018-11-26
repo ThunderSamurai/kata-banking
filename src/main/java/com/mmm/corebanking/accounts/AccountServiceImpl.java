@@ -1,7 +1,6 @@
-package com.mmm.corebanking;
+package com.mmm.corebanking.accounts;
 
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.Transaction;
+import com.mmm.corebanking.accounts.dao.AccountDAO;
 
 import javax.inject.Inject;
 import javax.inject.Named;

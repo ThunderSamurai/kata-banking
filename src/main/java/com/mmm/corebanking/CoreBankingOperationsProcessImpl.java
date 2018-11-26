@@ -1,32 +1,40 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.entities.*;
+import com.mmm.corebanking.accounts.Account;
+import com.mmm.corebanking.accounts.AccountService;
+import com.mmm.corebanking.accounts.transactions.Transaction;
+import com.mmm.corebanking.accounts.transactions.TransactionService;
+import com.mmm.corebanking.accounts.transactions.TransactionType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
+import java.util.Set;
 
 @Named
 public class CoreBankingOperationsProcessImpl implements CoreBankingOperationsProcess {
 
-    private final AccountDAO accountDAO;
+    private final AccountService accountService;
 
-    private final TransactionDAO transactionDAO;
+    private final TransactionService transactionService;
 
     @Inject
-    public CoreBankingOperationsProcessImpl(AccountDAO accountDAO, TransactionDAO transactionDAO){
-        this.accountDAO = accountDAO;
-        this.transactionDAO = transactionDAO;
+    public CoreBankingOperationsProcessImpl(AccountService accountService, TransactionService transactionService){
+        this.accountService = accountService;
+        this.transactionService = transactionService;
     }
 
 
     @Override
     public Account deposit( Transaction transaction) throws CoreBankingBusinessException {
+        Account accountToUpdate=accountService.findById(transaction.getAccount().getAccountId());
 
-        Account accountToUpdate=accountDAO.findById(transaction.getAccount().getAccountId());
         validateDepositTransaction(transaction);
 
-        transactionDAO.save(transaction);
-        return accountDAO.save(accountToUpdate);
+        accountToUpdate.setAmount(accountToUpdate.getAmount().add(transaction.getMonetaryAmount()));
+
+        transactionService.save(transaction);
+        return accountService.save(accountToUpdate);
     }
 
     private void validateDepositTransaction(Transaction transaction) throws CoreBankingBusinessException {
@@ -37,15 +45,20 @@ public class CoreBankingOperationsProcessImpl implements CoreBankingOperationsPr
     }
 
     @Override
-    public Account withdrawal(Account account, Transaction transaction) throws CoreBankingBusinessException {
-        validateWithdrawalTransaction(account,transaction);
+    public Account withdrawal(Transaction transaction) throws CoreBankingBusinessException {
+        Account accountToUpdate=accountService.findById(transaction.getAccount().getAccountId());
 
-        transactionDAO.save(transaction);
-        return accountDAO.save(account);
+        validateWithdrawalTransaction(transaction);
+
+        accountToUpdate.setAmount(accountToUpdate.getAmount().subtract(transaction.getMonetaryAmount()));
+
+        transactionService.save(transaction);
+
+        return accountService.save(accountToUpdate);
 
     }
 
-    private void validateWithdrawalTransaction(Account account, Transaction transaction) throws CoreBankingBusinessException {
+    private void validateWithdrawalTransaction( Transaction transaction) throws CoreBankingBusinessException {
         /**
          All validation calls and operations should be done here
          * */
@@ -53,8 +66,18 @@ public class CoreBankingOperationsProcessImpl implements CoreBankingOperationsPr
     }
 
     @Override
-    public SearchHisotryRequest searchHisotry(SearchHisotryRequest depositRequest) {
-        return null;
+    public Set<Transaction> searchHisotry(Date startingDate, Date endingDate ) throws CoreBankingBusinessException {
+
+        validateSearchRequest(startingDate, endingDate);
+        return transactionService.getTransactionsByDate(startingDate,endingDate);
+    }
+
+    private void validateSearchRequest(Date startingDate, Date endingDate) throws CoreBankingBusinessException {
+
+        /**
+         All validation calls and operations should be done here
+         * */
+        if(startingDate.after(endingDate)) throw new CoreBankingBusinessException("invalid search request data");
     }
 
 }

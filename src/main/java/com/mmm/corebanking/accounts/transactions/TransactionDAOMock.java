@@ -1,16 +1,13 @@
-package com.mmm.corebanking;
+package com.mmm.corebanking.accounts.transactions;
 
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.Transaction;
-import com.mmm.corebanking.entities.TransactionType;
+import com.mmm.corebanking.accounts.AccountTestFactory;
 
 import javax.inject.Named;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import java.math.BigDecimal;
-import java.util.Currency;
+import java.util.Date;
+import java.util.Set;
 
 @Named
 public class TransactionDAOMock implements TransactionDAO {
@@ -29,5 +26,10 @@ public class TransactionDAOMock implements TransactionDAO {
                 .setCurrency(eur).setNumber(201).create();
 
         return  Transaction.builder().transactionId(transactionId).transactionType(TransactionType.DEPOSIT).monetaryAmount(fstAmtEUR).build();
+    }
+
+    @Override
+    public Set<Transaction> getTransactionsByDate(Date startingDate, Date endingDate) {
+        return TransactionTestFactory.createTransactionListWithSameAmount(10, AccountTestFactory.createAccount());
     }
 }

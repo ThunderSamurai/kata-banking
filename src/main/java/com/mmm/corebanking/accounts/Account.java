@@ -1,25 +1,25 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.accounts;
 
+import com.mmm.corebanking.shared.entities.AbstractTrackedEntity;
+import com.mmm.corebanking.cutomers.Customer;
+import com.mmm.corebanking.accounts.transactions.Transaction;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import javax.money.MonetaryAmount;
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Set;
 
 @Entity
 @Data
 @Builder
-public class Account {
+public class Account extends AbstractTrackedEntity {
 
     @Id
     @Column(name="ID")
     private final long accountId;
 
-    private final MonetaryAmount amount;
+    private  MonetaryAmount amount;
 
 
     //TODO : optimiser
@@ -29,5 +29,6 @@ public class Account {
     @OneToMany(mappedBy="account")
     private Set<Transaction> transactionList;
     //Others infos like 'creation date', 'last save date', ....
+
 
 }

@@ -1,10 +1,9 @@
-package com.mmm.corebanking;
-
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.Transaction;
+package com.mmm.corebanking.accounts.transactions;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
+import java.util.Set;
 
 @Named
 public class TransactionServiceImpl implements TransactionService {
@@ -26,6 +25,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction findById(long transactionId) {
         return transactionDAO.findById(transactionId);
+    }
+
+    @Override
+    public Set<Transaction> getTransactionsByDate(Date startingDate, Date endingDate) {
+        return transactionDAO.getTransactionsByDate(startingDate,endingDate);
     }
 
 }

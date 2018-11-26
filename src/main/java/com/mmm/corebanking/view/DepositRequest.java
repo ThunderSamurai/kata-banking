@@ -1,16 +1,17 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.view;
 
+import com.mmm.corebanking.accounts.Account;
+import com.mmm.corebanking.accounts.transactions.Transaction;
+import com.mmm.corebanking.accounts.transactions.TransactionType;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import java.math.BigDecimal;
-import java.util.Currency;
 
-import static com.mmm.corebanking.entities.TransactionType.*;
-import static com.mmm.corebanking.entities.TransactionType.DEPOSIT;
+import static com.mmm.corebanking.accounts.transactions.TransactionType.DEPOSIT;
+import static com.mmm.corebanking.accounts.transactions.TransactionType.WITHDRAWL;
 
 @Data
 @Builder

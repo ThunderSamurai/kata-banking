@@ -1,17 +1,14 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.entities.DepositRequest;
-import com.mmm.corebanking.entities.DepositResponse;
-import com.mmm.corebanking.entities.SearchHisotryRequest;
-import com.mmm.corebanking.entities.WithdrawalRequest;
+import com.mmm.corebanking.view.*;
 
 public interface CoreBankingOperationsController {
 
 
     DepositResponse deposit(DepositRequest depositRequestt)throws CoreBankingBusinessException;
 
-    WithdrawalRequest withdrawal(WithdrawalRequest depositRequest);
+    WithdrawalResponse withdrawal(WithdrawalRequest depositRequest) throws CoreBankingBusinessException;
 
-    SearchHisotryRequest searchHisotry(SearchHisotryRequest depositRequest);
+    SearchResponse searchHisotry(SearchRequest depositRequest) throws CoreBankingBusinessException;
 
 }

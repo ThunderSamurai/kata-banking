@@ -1,4 +1,4 @@
-package com.mmm.corebanking.entities;
+package com.mmm.corebanking.accounts.transactions;
 
 public enum TransactionType {
 

@@ -1,7 +1,7 @@
-package com.mmm.corebanking;
+package com.mmm.corebanking.accounts.transactions;
 
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.Transaction;
+import java.util.Date;
+import java.util.Set;
 
 public interface TransactionDAO {
 
@@ -14,4 +14,5 @@ public interface TransactionDAO {
 
     Transaction findById(long transactionId);
 
+    Set<Transaction> getTransactionsByDate(Date startingDate, Date endingDate);
 }

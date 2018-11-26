@@ -1,7 +1,4 @@
-package com.mmm.corebanking;
-
-import com.mmm.corebanking.entities.Account;
-import com.mmm.corebanking.entities.Transaction;
+package com.mmm.corebanking.accounts;
 
 public interface AccountService {
 
