@@ -46,7 +46,7 @@ public class Account implements Serializable {
     @Column(name = "AMOUNT")
     private  MonetaryAmount amount;
 
-    
+
     @ManyToMany(mappedBy="accounts",
             cascade = CascadeType.ALL )
     @JsonIgnore
