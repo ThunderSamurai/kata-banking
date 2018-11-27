@@ -1,6 +1,6 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.view.*;
+import com.mmm.corebanking.views.*;
 
 public interface CoreBankingOperationsController {
 
@@ -9,6 +9,6 @@ public interface CoreBankingOperationsController {
 
     WithdrawalResponse withdrawal(WithdrawalRequest depositRequest) throws CoreBankingBusinessException;
 
-    SearchResponse searchHisotry(SearchRequest depositRequest) throws CoreBankingBusinessException;
+    SearchResponse getTransactionHisotry(SearchRequest depositRequest) throws CoreBankingBusinessException;
 
 }

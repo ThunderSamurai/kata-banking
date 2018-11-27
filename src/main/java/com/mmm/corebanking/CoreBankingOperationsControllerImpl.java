@@ -1,7 +1,8 @@
 package com.mmm.corebanking;
 
-import com.mmm.corebanking.accounts.Account;
-import com.mmm.corebanking.view.*;
+import com.mmm.corebanking.entites.Account;
+import com.mmm.corebanking.processes.CoreBankingOperationsProcess;
+import com.mmm.corebanking.views.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +39,9 @@ public class CoreBankingOperationsControllerImpl implements CoreBankingOperation
     }
 
     @RequestMapping(method = RequestMethod.PUT,path="/history")
-    public SearchResponse searchHisotry(@RequestBody SearchRequest searchRequest) throws CoreBankingBusinessException {
+    public SearchResponse getTransactionHisotry(@RequestBody SearchRequest searchRequest) throws CoreBankingBusinessException {
 
-       return SearchResponse.builder().transactionSet(coreBankingOperationsProcess.searchHisotry(searchRequest.getStartingDate(),searchRequest.getEndingDate())).build();
+       return SearchResponse.builder().transactionList(coreBankingOperationsProcess.getTransactionHisotry()).build();
 
     }
 
