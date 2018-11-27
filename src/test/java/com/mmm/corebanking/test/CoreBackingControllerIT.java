@@ -103,6 +103,7 @@ public class CoreBackingControllerIT {
         SearchRequest searchRequest= SearchRequest.builder().accountId(String.valueOf(expectedAccount.getAccountId())).startingDate(calendar.getTime()).endingDate(Calendar.getInstance().getTime()).build();
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(searchRequest);
+
         //WHEN-THEN
        this.mockMvc.perform(put("/history").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
     }

@@ -1,8 +1,9 @@
 package com.mmm.corebanking.test.daos.jpa;
 
+import com.mmm.corebanking.daos.jpa.AccountRepository;
 import com.mmm.corebanking.entites.Account;
 import com.mmm.corebanking.entites.AccountTestFactory;
-import com.mmm.corebanking.daos.jpa.AccountRepository;
+import com.mmm.corebanking.utils.MoneyUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,10 +51,7 @@ public class AccountJpaRepositoryTest {
         //GIVEN
         Account resultAccount=accountRepository.findByAccountId(accountExpected.getAccountId());
 
-        CurrencyUnit eur = Monetary.getCurrency("EUR");
-        MonetaryAmount fstAmtEUR = Monetary.getDefaultAmountFactory()
-                .setCurrency(eur).setNumber(250).create();
-
+        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(250);
 
         resultAccount.setAmount(fstAmtEUR);
 

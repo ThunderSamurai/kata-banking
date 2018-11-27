@@ -1,5 +1,7 @@
 package com.mmm.corebanking.entites;
 
+import com.mmm.corebanking.utils.MoneyUtils;
+
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
@@ -29,12 +31,12 @@ public class AccountTestFactory {
 
     public static Account createAccountWithCustomer(Customer customer) {
 
-        CurrencyUnit eur = Monetary.getCurrency("EUR");
-        MonetaryAmount fstAmtEUR = Monetary.getDefaultAmountFactory()
-                .setCurrency(eur).setNumber(200).create();
+
 
         List<Customer> customerList = new ArrayList<>();
         customerList.add(customer);
+
+        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
 
         return Account.builder().id(RANDOM_3.nextLong()).accountId(RANDOM_2.nextLong()).amount(fstAmtEUR).customers(customerList).build();
 

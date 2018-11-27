@@ -34,8 +34,8 @@ public class TransactionJpaRepositoryTest {
     @Before
     public void init(){
 
-       Account accountExppected=accountRepository.save(AccountTestFactory.createAccount());
-       transactionExpected= transactionRepository.saveAll(TransactionTestFactory.createTransactionListWithSameAmount(10,1,accountExppected)).get(0);
+       Account accountExpected=accountRepository.save(AccountTestFactory.createAccount());
+       transactionExpected= transactionRepository.saveAll(TransactionTestFactory.createTransactionListWithSameAmount(10,1,accountExpected)).get(0);
 
     }
 

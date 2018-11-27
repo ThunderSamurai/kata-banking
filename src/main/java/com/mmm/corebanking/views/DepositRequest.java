@@ -3,11 +3,10 @@ package com.mmm.corebanking.views;
 import com.mmm.corebanking.entites.Account;
 import com.mmm.corebanking.entites.Transaction;
 import com.mmm.corebanking.entites.TransactionType;
+import com.mmm.corebanking.utils.MoneyUtils;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
 import static com.mmm.corebanking.entites.TransactionType.DEPOSIT;
@@ -29,11 +28,7 @@ public class DepositRequest {
     private final String currency;
 
     public Transaction toTransaction(){
-        Monetary.getDefaultAmountFactory().setCurrency("EUR");
-
-        CurrencyUnit eur = Monetary.getCurrency(this.currency);
-        MonetaryAmount fstAmtEUR = Monetary.getDefaultAmountFactory()
-                .setCurrency(eur).setNumber(this.amount).create();
+        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(this.amount,this.getCurrency());
 
         TransactionType transactionType=(DEPOSIT.ordinal()==this.transactionType)? DEPOSIT: WITHDRAWL;
 
