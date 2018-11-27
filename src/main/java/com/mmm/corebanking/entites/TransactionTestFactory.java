@@ -2,8 +2,6 @@ package com.mmm.corebanking.entites;
 
 import com.mmm.corebanking.utils.MoneyUtils;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +15,9 @@ public class TransactionTestFactory {
 
     public static Transaction createDepositTransaction(long amount,long customerId, Account account){
 
-        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
+       MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
 
        return Transaction.builder().creationCustomerId(customerId).transactionId(1L).transactionType(TransactionType.DEPOSIT).monetaryAmount(fstAmtEUR).account(account).build();
-
-
 
     }
 
@@ -31,16 +27,14 @@ public class TransactionTestFactory {
 
         return Transaction.builder().creationCustomerId(customerId).transactionId(1L).transactionType(TransactionType.WITHDRAWL).monetaryAmount(fstAmtEUR).account(account).build();
 
-
-
     }
 
 
     public static List<Transaction> createTransactionListWithSameAmount(long amount,long customerId, Account account){
 
-        List<Transaction> transactions=new ArrayList<>();
-        CurrencyUnit eur = Monetary.getCurrency("EUR");
-        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
+       List<Transaction> transactions=new ArrayList<>();
+
+       MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
 
        transactions.add(Transaction.builder().creationCustomerId(customerId).id(RANDOM_1.nextLong()).transactionId(RANDOM_1.nextLong()).transactionType(TransactionType.WITHDRAWL).monetaryAmount(fstAmtEUR).account(account).build());
 

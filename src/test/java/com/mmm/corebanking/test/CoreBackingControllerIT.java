@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes =CoreBankingApplication.class)
-@ActiveProfiles(AccountDaoProviders.MOCK_ACCOUNT_DAO)
+@ActiveProfiles(AccountDaoProviders.ACCOUNT_DATABASE_DAO)
 @AutoConfigureMockMvc
 public class CoreBackingControllerIT {
 

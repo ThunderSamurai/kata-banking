@@ -2,8 +2,6 @@ package com.mmm.corebanking.entites;
 
 import com.mmm.corebanking.utils.MoneyUtils;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +9,12 @@ import java.util.Random;
 
 public class AccountTestFactory {
 
-    private final static Random RANDOM_1 = new Random();
     private final static Random RANDOM_2 = new Random();
     private final static Random RANDOM_3 = new Random();
 
     public static Account createAccount(){
 
-        CurrencyUnit eur = Monetary.getCurrency("EUR");
-        MonetaryAmount fstAmtEUR = Monetary.getDefaultAmountFactory()
-                .setCurrency(eur).setNumber(200).create();
+        MonetaryAmount fstAmtEUR = MoneyUtils.createEuroMonetaryAmount(200);
 
         List<Customer> customerList=new ArrayList<>();
         customerList.add(CustomerTestFactory.create());
@@ -30,7 +25,6 @@ public class AccountTestFactory {
     }
 
     public static Account createAccountWithCustomer(Customer customer) {
-
 
 
         List<Customer> customerList = new ArrayList<>();
