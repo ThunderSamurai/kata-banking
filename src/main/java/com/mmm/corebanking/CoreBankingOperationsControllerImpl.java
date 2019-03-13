@@ -24,7 +24,7 @@ public class CoreBankingOperationsControllerImpl implements CoreBankingOperation
         this.coreBankingOperationsProcess = coreBankingOperationsProcess;
     }
 
-    @RequestMapping(method = RequestMethod.PUT,path="/deposit")
+    @RequestMapping(method = RequestMethod.POST,path="/deposit")
     public DepositResponse deposit(@RequestBody DepositRequest depositRequest) throws CoreBankingBusinessException {
 
         Account accountUpdated= coreBankingOperationsProcess.deposit(depositRequest.toTransaction());
@@ -32,13 +32,13 @@ public class CoreBankingOperationsControllerImpl implements CoreBankingOperation
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT,path="/withdrawal")
+    @RequestMapping(method = RequestMethod.POST,path="/withdrawal")
     public WithdrawalResponse withdrawal(@RequestBody WithdrawalRequest withdrawalRequest) throws CoreBankingBusinessException {
         Account accountUpdated= coreBankingOperationsProcess.withdrawal(withdrawalRequest.toTransaction());
         return WithdrawalResponse.builder().accountId(String.valueOf(accountUpdated.getAccountId())).amount(new BigDecimal(accountUpdated.getAmount().getNumber().longValueExact())).build();
     }
 
-    @RequestMapping(method = RequestMethod.PUT,path="/history")
+    @RequestMapping(method = RequestMethod.POST,path="/history")
     public SearchResponse getTransactionHisotry(@RequestBody SearchRequest searchRequest) throws CoreBankingBusinessException {
 
        return SearchResponse.builder().transactionList(coreBankingOperationsProcess.getTransactionHisotry()).build();

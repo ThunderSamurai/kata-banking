@@ -2,11 +2,11 @@ package com.mmm.corebanking.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mmm.corebanking.CoreBankingApplication;
+import com.mmm.corebanking.daos.AccountDaoProviders;
 import com.mmm.corebanking.entites.*;
 import com.mmm.corebanking.services.AccountService;
 import com.mmm.corebanking.services.CustomerSerivce;
 import com.mmm.corebanking.services.TransactionService;
-import com.mmm.corebanking.daos.AccountDaoProviders;
 import com.mmm.corebanking.views.DepositRequest;
 import com.mmm.corebanking.views.SearchRequest;
 import com.mmm.corebanking.views.WithdrawalRequest;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -76,7 +76,7 @@ public class CoreBackingControllerIT {
         String jsonInString = mapper.writeValueAsString(depositRequest);
 
         //WHEN-THEN
-        this.mockMvc.perform(put("/deposit").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(post("/deposit").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class CoreBackingControllerIT {
         String jsonInString = mapper.writeValueAsString(withdrawalRequest);
 
         //WHEN-THEN
-        this.mockMvc.perform(put("/withdrawal").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(post("/withdrawal").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
     }
 
 
@@ -105,7 +105,7 @@ public class CoreBackingControllerIT {
         String jsonInString = mapper.writeValueAsString(searchRequest);
 
         //WHEN-THEN
-       this.mockMvc.perform(put("/history").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
+       this.mockMvc.perform(post("/history").contentType(MediaType.APPLICATION_JSON).content(jsonInString)).andDo(print()).andExpect(status().isOk());
     }
 
 

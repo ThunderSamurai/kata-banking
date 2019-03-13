@@ -36,6 +36,7 @@ A layered design has been chosen as follows : Controller -> Process -> Service -
 
 Further work :
  - Code Review ...,
+ - Add Code Formatter,
  - Add Logging,
  - Add Continuous delivery solution (i.e BitBucket),
  - Add OpenAPI Description & Swagger,
